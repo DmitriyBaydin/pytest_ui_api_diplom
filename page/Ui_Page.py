@@ -109,7 +109,3 @@ class UiPage:
         self.__driver.find_element(
             By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/div/div/div[1]/section/div[1]/div/div[2]/div/div[2]').click()  # клик сначала новые
         return txt
-
-    @allure.step("Закрытие веб-браузера")
-    def close_driver(self):
-        self.__driver.quit()

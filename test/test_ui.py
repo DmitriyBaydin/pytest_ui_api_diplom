@@ -1,10 +1,5 @@
 import allure
 import pytest
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.wait import WebDriverWait
 from page.Ui_Page import UiPage
 
 

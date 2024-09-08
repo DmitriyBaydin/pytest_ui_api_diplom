@@ -1,8 +1,6 @@
 import allure
 import pytest
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 
 
 @pytest.fixture

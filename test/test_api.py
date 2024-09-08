@@ -1,12 +1,6 @@
 import allure
 import pytest
 import requests
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from page.Api_Page import ApiPage
-
 
 base_url = "https://web-gate.chitai-gorod.ru/api"
 headers = {
