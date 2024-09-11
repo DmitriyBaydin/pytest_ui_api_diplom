@@ -1,11 +1,11 @@
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from constants import ui_url
 
-ui_url = "https://www.chitai-gorod.ru/"
 
+class Ui_MainPage:
 
-class UiPage:
     def __init__(self, driver: WebDriver) -> None:
         self.__url = ui_url
         self.__driver = driver
@@ -29,7 +29,7 @@ class UiPage:
         self.__driver.find_element(
             By.CLASS_NAME, "header-search__button").click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/p').text
+            By.XPATH, '//p[contains(text(),"Показываем")]').text
         return txt
 
     @allure.step("Поиск книги на латинице")
@@ -39,7 +39,7 @@ class UiPage:
         self.__driver.find_element(
             By.CLASS_NAME, "header-search__button").click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/p').text
+            By.XPATH, '//p[contains(text(),"Показываем")]').text
         return txt
 
     @allure.step("Пустой поиск")
@@ -56,7 +56,7 @@ class UiPage:
         self.__driver.find_element(
             By.CLASS_NAME, "header-search__button").click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/p').text
+            By.XPATH, '//p[contains(text(),"Показываем")]').text
         return txt
 
     @allure.step("Поиск по категории")
@@ -66,7 +66,7 @@ class UiPage:
         self.__driver.find_element(
             By.CLASS_NAME, "header-search__button").click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/p').text
+            By.XPATH, '//p[contains(text(),"Показываем")]').text
         return txt
 
     @allure.step("Поиск через каталог")
@@ -80,20 +80,7 @@ class UiPage:
         self.__driver.find_element(
             By.XPATH, '//span[contains(text(),"Поэзия")]').click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/h1').text
-        return txt
-
-    @allure.step("Просмотр акций на странице")
-    def promotions(self):
-        self.__driver.find_element(
-            By.XPATH, '//div[contains(text(),"Да, я здесь")]').click()
-        self.__driver.get("https://www.chitai-gorod.ru/promotions")
-
-    @allure.step("Проверка пустой корзины")
-    def get_empty_result_message(self):
-        self.__driver.get("https://www.chitai-gorod.ru/cart")
-        txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/div[4]/div/div[1]').text
+            By.XPATH, '//h1[contains(text(),"Поэзия")]').text
         return txt
 
     @allure.step("Проверка фильтра 'Сначала новые'")
@@ -103,9 +90,9 @@ class UiPage:
         self.__driver.find_element(
             By.CLASS_NAME, "header-search__button").click()
         txt = self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/p').text  # выдача
+            By.XPATH, '//p[contains(text(),"Показываем")]').text
         self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/div/div/div[1]/section/div[1]/div/div[1]/div').click()  # клик по релевантности
+            By.XPATH, '//div[contains(text(),"По релевантности")]').click()
         self.__driver.find_element(
-            By.XPATH, '//*[@id="__layout"]/div/div[3]/div[1]/div/div/div[1]/section/div[1]/div/div[2]/div/div[2]').click()  # клик сначала новые
+            By.XPATH, '//div[contains(text(),"Сначала новые")]').click()
         return txt

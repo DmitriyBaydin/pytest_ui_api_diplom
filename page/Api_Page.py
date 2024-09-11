@@ -1,19 +1,58 @@
 import allure
+import requests
 from selenium.webdriver.remote.webdriver import WebDriver
+from constants import base_url, search, headers
 
 
-api_url = "https://web-gate.chitai-gorod.ru/api"
-token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU4MjcwNTEsImlhdCI6MTcyNTY1OTA1MSwiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImY2YTY0MjY0M2RhMTIwNGJmMmIyMjk3ZDBjMGRjMzUxNGI1ZGRlYTUzYzFjNjg5ZDA2OGZmOTRiZThlN2RjMjUiLCJ0eXBlIjoxMH0._i9m9n617we_OztYtqgOjofP35obTt7pnDyETiJsN_U"
-
-
-class ApiPage:
+class Api_Page:
     def __init__(self, driver: WebDriver) -> None:
-        self.__url = api_url
+        self.__url = base_url
         self.__driver = driver
 
     def go(self):
         self.__driver.get(self.__url)
 
-    @allure.step("Получить текущий URL")
-    def get_current_url(self) -> str:
-        return self.__driver.current_url
+    @allure.step("Поиск книги на кириллице")
+    def ru_get(self) -> None:
+        resp = requests.get(base_url+search+"гарри", headers=headers)
+        return resp
+
+    @allure.step("Поиск книги на латинице")
+    def eng_get(self) -> None:
+        resp = requests.get(base_url+search+'harry', headers=headers)
+        return resp
+
+    @allure.step("Поиск книги по автору")
+    def author_get(self) -> None:
+        resp = requests.get(base_url+search+'Михаил Булгаков', headers=headers)
+        return resp
+
+    @allure.step("Поиск книги по серии")
+    def series_get(self) -> None:
+        resp = requests.get(base_url+search+'гарри поттер', headers=headers)
+        return resp
+
+    @allure.step("Поиск книги по жанру")
+    def fiction_get(self) -> None:
+        resp = requests.get(base_url+search+'Классическая литература', headers=headers)
+        return resp
+
+    @allure.step("Поиск канцелярии")
+    def prod_get(self) -> None:
+        resp = requests.get(base_url+search+'Канцелярия', headers=headers)
+        return resp
+
+    @allure.step("Поиск неправильным методом")
+    def prod_delete(self) -> None:
+        resp = requests.delete(base_url+search+'Канцелярия', headers=headers)
+        return resp
+
+    @allure.step("Поиск спецсимволы")
+    def neg_get(self) -> None:
+        resp = requests.get(base_url+search+'.№#$%&!?', headers=headers)
+        return resp
+
+    @allure.step("Поиск пустой")
+    def empty_get(self) -> None:
+        resp = requests.get(base_url+search+'', headers=headers)
+        return resp
