@@ -1,11 +1,8 @@
 import allure
 import pytest
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.wait import WebDriverWait
-from page.Ui_Page import UiPage
+from page.Ui_MainPage import Ui_MainPage
+from page.Ui_PromoPage import Ui_PromoPage
+from page.Ui_CartPage import Ui_CartPage
 
 
 @allure.title("Открытие сайта")
@@ -15,7 +12,7 @@ from page.Ui_Page import UiPage
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы в Chrome")
 def test_main_page(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
 
@@ -27,7 +24,7 @@ def test_main_page(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_rus_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.rus_search('мастер и маргарита')
@@ -42,7 +39,7 @@ def test_rus_search(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_eng_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.eng_search('harry potter')
@@ -57,7 +54,7 @@ def test_eng_search(browser):
 @pytest.mark.negative_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_empty_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     main_page.empty_search("")
@@ -73,7 +70,7 @@ def test_empty_search(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_books_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.books_search('Python, Ревизор')
@@ -88,7 +85,7 @@ def test_books_search(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_series_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.series_search('Книги для детей')
@@ -103,10 +100,10 @@ def test_series_search(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_promo(browser):
-    main_page = UiPage(browser)
-    main_page.go()
-    main_page.set_cookie_policy()
-    text = main_page.promotions()
+    promo_page = Ui_PromoPage(browser)
+    promo_page.go()
+    promo_page.set_cookie_policy()
+    promo_page.promotions()
     url = browser.current_url
     with allure.step("Проверка текста с результатами поиска на странице"):
         assert url == "https://www.chitai-gorod.ru/promotions"
@@ -119,7 +116,7 @@ def test_promo(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_catalog_search(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.catalog_search()
@@ -134,7 +131,7 @@ def test_catalog_search(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_filter_online(browser):
-    main_page = UiPage(browser)
+    main_page = Ui_MainPage(browser)
     main_page.go()
     main_page.set_cookie_policy()
     text = main_page.filter_online('Собачье сердце')
@@ -149,9 +146,9 @@ def test_filter_online(browser):
 @pytest.mark.positive_test
 @allure.step("Открытие веб-страницы и выполнение поиска")
 def test_get_empty_result_message(browser):
-    main_page = UiPage(browser)
-    main_page.go()
-    main_page.set_cookie_policy()
-    msg = main_page.get_empty_result_message()
+    cart_page = Ui_CartPage(browser)
+    cart_page.go()
+    cart_page.set_cookie_policy()
+    msg = cart_page.get_empty_result_message()
     with allure.step("Проверка пустой корзины и сообщение 'В корзине ничего нет'"):
         assert msg == "В корзине ничего нет"
